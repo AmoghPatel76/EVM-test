@@ -1,0 +1,25 @@
+name: Run test5.py
+
+on:
+  workflow_dispatch:    # <-- This enables manual runs
+  schedule:
+    - cron: '0 6 * * 1' # (optional) still runs every Monday at 06:00 UTC
+
+jobs:
+  run-script:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas openpyxl Office365-REST-Python-Client
+
+      - name: Run test5.py
+        run: python test5.py
